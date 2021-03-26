@@ -1,0 +1,21 @@
+version: "3.7"
+
+services:
+  db: #service name
+    image: postgres:alpine 
+    ports: 
+      - "5433:5432" #target:source
+    environment: #environment variable
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=admin
+      - POSTGRES_DB=backend
+    logging:
+      driver: none
+  
+  server:
+   build: demo ## build context (folder that contain Dockerfile)
+   ports:
+     - "8080:8080"
+   environment:
+     - DB_HOST=db
+     - DB_PORT=5432
